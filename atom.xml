@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>XiaoleiY</title>
   
-  
+  <subtitle>The tech blog of a coder.</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-09T15:09:54.000Z</updated>
+  <updated>2017-09-13T14:30:00.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Xiaolei Yu</name>
     
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AI get started</title>
+    <link href="http://yoursite.com/2017/09/13/ai-101-md/"/>
+    <id>http://yoursite.com/2017/09/13/ai-101-md/</id>
+    <published>2017-09-13T14:26:35.000Z</published>
+    <updated>2017-09-13T14:30:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>The brief introduction to the AI development.</p><h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><h3 id="1-Show-me-the-code"><a href="#1-Show-me-the-code" class="headerlink" title="1. Show me the code"></a>1. Show me the code</h3><p>Jslkdfalsjfla;jfwipourwe</p><h3 id="2-Wwwwoowowowo"><a href="#2-Wwwwoowowowo" class="headerlink" title="2. Wwwwoowowowo"></a>2. Wwwwoowowowo</h3><p>Sjlsjalflsf </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;The brief introduction to the AI development.&lt;/p&gt;
+&lt;h2 id=&quot;Getting-Started&quot;&gt;&lt;a href=&quot;#Getting-Started&quot; class=&quot;headerlink&quot; title=&quot;Getting S
+      
+    
+    </summary>
+    
+    
+      <category term="tech" scheme="http://yoursite.com/tags/tech/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
