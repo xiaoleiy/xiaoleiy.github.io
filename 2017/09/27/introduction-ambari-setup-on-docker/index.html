@@ -414,35 +414,18 @@
 <p>还有一个问题，Ambari将其数据存储在数据库中，支持MySQL、PostgreSQL等数据库；容器内安装MySQL之后，基于上一步创建的新容器里，会发现MySQL启动不起来，执行命令 <code>/etc/init.d/mysql restart</code> 启动失败，在 <code>/var/log/mysql/error.log</code> 日志文件中打印有 <code>170802 14:02:59 [ERROR] Fatal error: Can&#39;t open and lock privilege tables: Got error 140 from storage engine</code> 的错误，经过网上查资料，需要在创建容器的时候添加参数 <code>-v /var/lib/mysql</code> 将MySQL数据存储路径声明为数据卷，即可解决问题。<br>启动容器之后，执行命令 <code>docker exec -it ambari /bin/bash</code> 进入容器内部。</p>
 <h3 id="Ambari安装"><a href="#Ambari安装" class="headerlink" title="Ambari安装"></a>Ambari安装</h3><ol>
 <li><p>配置Ubuntu的软件仓库源：<br> 国内建议采用阿里云的软件源，在root账号下用vim打开<code>/etc/apt/sources.list</code>文件，删除文件所有内容，粘贴如下内容：</p>
-<pre><code>deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse
-</code></pre><p> 执行命令 <code>apt-get update</code> 完成软件列表更新</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</div><div class="line">deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse</div><div class="line">deb-src http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse</div></pre></td></tr></table></figure>
+<p> 执行命令 <code>apt-get update</code> 完成软件列表更新</p>
 </li>
 <li><p>安装Ambari所依赖的软件</p>
 <ul>
 <li><p><strong>Oracle JDK：</strong> 逐条执行如下命令，以添加WebUpd8团队（<a href="https://launchpad.net/~webupd8team/+archive/ubuntu/java" target="_blank" rel="external">https://launchpad.net/~webupd8team/+archive/ubuntu/java</a>）提供的Oracle JDK仓库源，并从该仓库安装JDK：</p>
-<pre><code>apt-get install software-properties-common
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-sudo apt-get install oracle-java8-set-default
-</code></pre><p>  完成安装之后，在 ~/.bashrc 文件末尾添加命令 <code>export JAVA_HOME=/usr/lib/jvm/java-8-oracle</code> 以配置JAVA_HOME 环境变量。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">apt-get install software-properties-common</div><div class="line">sudo add-apt-repository ppa:webupd8team/java</div><div class="line">sudo apt-get update</div><div class="line">sudo apt-get install oracle-java8-installer</div><div class="line">sudo apt-get install oracle-java8-set-default</div></pre></td></tr></table></figure>
+<p>  完成安装之后，在 ~/.bashrc 文件末尾添加命令 <code>export JAVA_HOME=/usr/lib/jvm/java-8-oracle</code> 以配置JAVA_HOME 环境变量。</p>
 </li>
 <li><p><strong>MySQL：</strong> 执行命令 <code>apt-get install mysql-server</code> 安装MySQL服务器，安装完成后执行命令 <code>mysql -uroot -proot</code> 进入MySQL客户端，执行如下SQL代码：</p>
-<pre><code>create database ambari;
-use ambari;
-GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;root_password&apos; WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-exit;
-</code></pre><p>  由于Ambari的数据存储在MySQL数据库中，这里为Ambari单独创建了database，并为其赋了完全控制权限；说明：假设MySQL数据库root用户的密码为：root_password<br>  修改 <code>/etc/mysql/my.conf</code>，将<code>skip-external-locking</code>注释掉，并确保 <code>bind-address = 0.0.0.0</code> 配置，以使MySQL可被远程主机访问。<br>  执行命令<code>/etc/init.d/mysql restart</code>重启MySQL 服务。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">database</span> ambari;</div><div class="line"><span class="keyword">use</span> ambari;</div><div class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'root_password'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</div><div class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>;</div><div class="line">exit;</div></pre></td></tr></table></figure>
+<p>  由于Ambari的数据存储在MySQL数据库中，这里为Ambari单独创建了database，并为其赋了完全控制权限；说明：假设MySQL数据库root用户的密码为：root_password<br>  修改 <code>/etc/mysql/my.conf</code>，将<code>skip-external-locking</code>注释掉，并确保 <code>bind-address = 0.0.0.0</code> 配置，以使MySQL可被远程主机访问。<br>  执行命令<code>/etc/init.d/mysql restart</code>重启MySQL 服务。</p>
 </li>
 <li><p><strong>时间同步服务器ntp：</strong> 执行命令 <code>apt-get install ntp</code>  安装ntp时间同步服务器，以便于集群环境中各节点的时钟一致；执行命令 <code>sudo service ntp restart</code>  重启ntp服务。</p>
 </li>
