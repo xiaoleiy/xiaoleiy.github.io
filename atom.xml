@@ -17,6 +17,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>无障碍使用Google搜索</title>
+    <link href="http://yoursite.com/2017/11/07/access-google-withoutvpn/"/>
+    <id>http://yoursite.com/2017/11/07/access-google-withoutvpn/</id>
+    <published>2017-11-07T13:18:35.000Z</published>
+    <updated>2017-11-04T13:38:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>可能很多人和笔者一样，自己有购买过VPN，访问某些网站和应用的时候会把VPN打开， 如果VPN有流量限制，访问完之后还要将VPN关掉。如果你用的VPN不稳定，可能还需要多次更换主机；而笔者在自己日常工作中发现，几乎有90%的需求都是用Google搜索，有时候想迅速搜到想要的结果，以解决纠缠了很久的问题。这种时候，如果能够无障碍的快速访问Google，那简直是再高效不过的了。今天介绍一种无需VPN快速使用Google搜索的方法。<br><a href="https://nova.rambler.ru" target="_blank" rel="external">https://nova.rambler.ru</a> 是一个俄罗斯的搜索引擎网站，它内部将搜索操作重定向到Google去完成的，因此，它更像是一个代理，其搜索结果也就和Google的一模一样。借助这个网站，我们可以做一些简单的定制，在不需要VPN的情况下，简单快速的使用Google搜索。</p><a id="more"></a><h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><ol><li>打开浏览器，访问 <a href="https://nova.rambler.ru/search?query=test&amp;lang=en" target="_blank" rel="external">https://nova.rambler.ru/search?query=test&amp;lang=en</a> 进入Rambler的搜索页面，这里，我们用“test”作为搜索关键字。</li><li>Chrome浏览器下在页面右下角，点击按钮 <strong>Search Settings</strong> 打开搜索定制对话框，可以选择单页显示搜索结果排序方法、结果条数，以及搜索过滤政策；   <img src="/2017/11/07/access-google-withoutvpn/search-settings.png" alt="搜索设置" title="搜索设置">    </li><li>设置为浏览器默认搜索引擎（以Chrome为例，其他浏览器类似）：进入搜索引擎设置窗口（Chrome中访问<a href="chrome://settings/searchEngines" target="_blank" rel="external">chrome://settings/searchEngines</a> 即可），点击按钮 <strong>添加</strong> 来新增一个搜索引擎，在 <strong>网址</strong> 一栏输入该URL：<a href="https://nova.rambler.ru/search?query=%s&amp;lang=en" target="_blank" rel="external">https://nova.rambler.ru/search?query=%s&amp;lang=en</a> ；将新增的搜索引擎设置为默认搜索引擎。这样，在浏览器输入拦输入关键字就可以完成搜索了。   <img src="/2017/11/07/access-google-withoutvpn/set-default-searchengine.png" alt="配置默认搜索引擎" title="配置默认搜索引擎">    </li></ol><h3 id="更进一步"><a href="#更进一步" class="headerlink" title="更进一步"></a>更进一步</h3><h5 id="搜索结果页面去广告"><a href="#搜索结果页面去广告" class="headerlink" title="搜索结果页面去广告"></a>搜索结果页面去广告</h5><p>由于该搜索引擎结果页面中带有广告，且结果条目预览宽度较窄，Chrome浏览器里，我们可以安装Stylish插件，然后做如下简单的CSS定制，即可去除广告，且让搜索结果预览更多的文字。<br>    google_ads_frame1 { display: none; }<br>    .l-main, .l-null { width: 950px; }<br>    .l-aside { display: none; }<br>这是去除广告之后的页面效果：<br>    <img src="/2017/11/07/access-google-withoutvpn/search-results-wo-ads.png" alt="去除广告" title="去除广告">    </p><h5 id="手机浏览器上使用Google搜索"><a href="#手机浏览器上使用Google搜索" class="headerlink" title="手机浏览器上使用Google搜索"></a>手机浏览器上使用Google搜索</h5><p>手机端浏览器，可以访问<a href="https://m.search.rambler.ru/search?query=test" target="_blank" rel="external">https://m.search.rambler.ru/search?query=test</a>来进行搜索，但是貌似手机端的语言请求参数 <code>lang=en</code> 并不生效；支持自定义搜索引擎的浏览器，可以使用<a href="https://m.search.rambler.ru/search?query=test" target="_blank" rel="external">https://m.search.rambler.ru/search?query=%s</a>作为默认索索URL；</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;简单介绍&quot;&gt;&lt;a href=&quot;#简单介绍&quot; class=&quot;headerlink&quot; title=&quot;简单介绍&quot;&gt;&lt;/a&gt;简单介绍&lt;/h3&gt;&lt;p&gt;可能很多人和笔者一样，自己有购买过VPN，访问某些网站和应用的时候会把VPN打开， 如果VPN有流量限制，访问完之后还要将VPN关掉。如果你用的VPN不稳定，可能还需要多次更换主机；而笔者在自己日常工作中发现，几乎有90%的需求都是用Google搜索，有时候想迅速搜到想要的结果，以解决纠缠了很久的问题。这种时候，如果能够无障碍的快速访问Google，那简直是再高效不过的了。今天介绍一种无需VPN快速使用Google搜索的方法。&lt;br&gt;&lt;a href=&quot;https://nova.rambler.ru&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://nova.rambler.ru&lt;/a&gt; 是一个俄罗斯的搜索引擎网站，它内部将搜索操作重定向到Google去完成的，因此，它更像是一个代理，其搜索结果也就和Google的一模一样。借助这个网站，我们可以做一些简单的定制，在不需要VPN的情况下，简单快速的使用Google搜索。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tools" scheme="http://yoursite.com/categories/Tools/"/>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title>基于Docker、Ambari部署大数据集群环境（续）- 大数据集群服务安装部署</title>
     <link href="http://yoursite.com/2017/11/04/introduction-ambari-setup-on-docker-2/"/>
     <id>http://yoursite.com/2017/11/04/introduction-ambari-setup-on-docker-2/</id>
